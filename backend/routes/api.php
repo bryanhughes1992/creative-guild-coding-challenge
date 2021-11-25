@@ -1,5 +1,6 @@
 <?php
-
+use App\Models\Artists;
+use App\Models\Albums;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/artists', function() {
+    return Artists::all();
+});
+
+Route::get('/albums', function() {
+    return Albums::all();
 });
