@@ -41,3 +41,10 @@
 ![Move Public to subdomain folder](../project-dependancies/move-to-subdomain.png)
 6. Adjust the ***index.php*** file to reflect the server's path:
 ![Adjusted index.php](../project-dependancies/adjust-index.png)
+
+#
+
+## **Challenges & Triumphs**
+ * Although being slightly less formidable in the back-end as I am in the front-end, I found this project straight forward and relatively easy to complete.
+ * Overall, I found Laravel very easy to use, especially on a simple API such as this. Laravel's documentation was very supportive for building the types of tables I needed.
+ * I found hosting this project to be slightly tricky, but not too difficult, overall a great learning experience.
