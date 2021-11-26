@@ -17,12 +17,27 @@
 
 #
 ## Hosting Steps:
+
 1. Clear the project's ***cache*** in the command line with:
+
    ```php
    php artisan cache:clear
    ```
+
 2. Clear any potential pre-existing cache of the project's ***config-file*** in the command line with:
+
    ```php
    php artisan config:clear
    ```
+
 3. Make a zip folder of just the project's contents, not it's parent folder:
+![Project Files pre-zip](../project-dependancies/backend_project_files.png)
+![Project Files Post-Zip](../project-dependancies/zip_folder.png)
+
+4. Unzip this folder in a dedicated folder, server-side:
+![Unzip Server-Side](../project-dependancies/server-side-unzip.png)
+
+5. Move the contents of the projects ***public*** folder on the server to the sub-domains *creative-guild* directory:
+![Move Public to subdomain folder](../project-dependancies/move-to-subdomain.png)
+6. Adjust the ***index.php*** file to reflect the server's path:
+![Adjusted index.php](../project-dependancies/adjust-index.png)
