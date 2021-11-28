@@ -2,10 +2,22 @@ window.addEventListener("DOMContentLoaded", () => {
   fetch("https://creative-backend.bryanhughes.net/api/artists")
     .then(response => response.json())
     .then(data => handleArtists(data));
+
+  fetch("https://creative-backend.bryanhughes.net/api/albums")
+    .then(response => response.json())
+    .then(data => console.log(data));
 });
 
 
-
+/**
+ * Accepts an object, which contains the artist data.
+ * Loops through the object's members, and saves their
+ * values to variables. Passes these variables to a
+ * function that will format their values into HTML.
+ * Finally, this function appends the formatted HTML to
+ * the HTML DOM.
+ * @param {object} data
+ */
 function handleArtists(data) {
   let name = "";
   let phone = "";
