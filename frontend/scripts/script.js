@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   fetch("https://creative-backend.bryanhughes.net/api/artists")
-    .then(response => response.json())
-    .then(data => handleArtists(data));
+  .then(response => response.json())
+  .then(data => handleArtists(data));
 
   fetch("https://creative-backend.bryanhughes.net/api/albums")
     .then(response => response.json())
@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
  * function that will format their values into HTML.
  * Finally, this function appends the formatted HTML to
  * the HTML DOM.
- * @param {object} data
+ * @param {Object} data
  */
 function handleArtists(data) {
   let name = "";
@@ -42,17 +42,18 @@ function handleArtists(data) {
  * Takes all of the Artist's details, provides them
  * with HTML markup, wraps them in div containers, and
  * appends them to the HTML DOM.
- * @param {string} name
- * @param {string} phone
- * @param {string} email
- * @param {string} bio
- * @param {string} profilePic
+ * @param {String} name
+ * @param {String} phone
+ * @param {String} email
+ * @param {String} bio
+ * @param {String} profilePic
  * @returns {HTMLDivElement}
  */
 function formatArtists(name, phone, email, bio, profilePic) {
   // Capture HTML main element
   let artistContainer = document.createElement("div");
   artistContainer.classList.add("artist-container");
+  artistContainer.style.order = "3";
 
   // Make variables with a value equal to the ones passed in
   let artistName = name;
@@ -133,16 +134,21 @@ function formatArtists(name, phone, email, bio, profilePic) {
   return artistContainer;
 }
 
-
+/**
+ *
+ * @param {Object} data
+ */
 function handleAlbums(data) {
-  console.log(data);
+  // console.log(data);
   let id = 0;
   let title = "";
   let albumDesc = "";
   let img = "";
   let dateCreated = "";
-  let featured = false;
-  let artistId = 0;
+  let featured = "";
+  let app = document.getElementById("app");
+  let masterAlbumContainer = document.createElement("div");
+  masterAlbumContainer.classList.add("album-container");
 
   for (let i = 0; i < data.length; i++) {
     id = data[i].id;
@@ -153,13 +159,23 @@ function handleAlbums(data) {
     featured = data[i].featured;
     artistId = data[i].artist_id;
 
-    formatAlbums(id, title, albumDesc, img, dateCreated, featured, artistId);
+    masterAlbumContainer.append(formatAlbums(id, title, albumDesc, img, dateCreated, featured));
   }
+  app.append(masterAlbumContainer);
 }
 
-function formatAlbums(id, title, albumDesc, img, dateCreated, featured, artistId) {
-  let masterAlbumContainer = document.createElement("div");
-
+/**
+ *
+ * @param {Number} id
+ * @param {String} title
+ * @param {String} albumDesc
+ * @param {String} img
+ * @param {String} dateCreated
+ * @param {String} featured
+ * @param {String} artistId
+ * @returns {HTMLDivElement}
+ */
+function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   let albumContainer = document.createElement("div");
   albumContainer.id = id;
 
@@ -193,7 +209,20 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured, artistId
   albumDateCreated.innerText = dateCreated;
   albumDateCreated.classList.add("album-date-created");
   let dateContainer = document.createElement("div");
-  dateContainer.
+  dateContainer.classList.add("album-date-container");
+  dateContainer.append(albumDateCreated);
+  albumContainer.append(dateContainer);
 
+  if (featured === "1") {
+    let featuredAlbum = document.createElement("span");
+    featuredAlbum.innerText = "❤️";
+    featuredAlbum.classList.add("featured-album");
+    let featuredContainer = document.createElement("div");
+    featuredContainer.classList.add("featured-container");
+    featuredContainer.append(featuredAlbum);
+    albumContainer.append(featuredContainer);
+  }
+
+  return albumContainer;
 
 }
