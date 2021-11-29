@@ -228,6 +228,9 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   imgContainer.append(albumTitle);
   albumContainer.append(imgContainer);
 
+  let dateFeat = document.createElement("div");
+  dateFeat.classList.add("date-feat-container");
+
   /**
    * DESCRIPTION
    */
@@ -239,6 +242,21 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   descContainer.append(albumDescription);
   albumContainer.append(descContainer);
 
+  /**
+  * FEATURED
+  */
+  let featuredContainer = document.createElement("div");
+  featuredContainer.classList.add("featured-container");
+
+  if (featured === "1") {
+    let featuredAlbum = document.createElement("span");
+    featuredAlbum.innerText = "❤️";
+    featuredAlbum.classList.add("featured-album");
+
+    featuredContainer.append(featuredAlbum);
+    dateFeat.append(featuredContainer);
+  }
+  dateFeat.append(featuredContainer);
 
   /**
    * DATE-CREATED
@@ -249,20 +267,9 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   let dateContainer = document.createElement("div");
   dateContainer.classList.add("album-date-container");
   dateContainer.append(albumDateCreated);
-  albumContainer.append(dateContainer);
+  dateFeat.append(dateContainer);
 
-  /**
-   * FEATURED
-   */
-  if (featured === "1") {
-    let featuredAlbum = document.createElement("span");
-    featuredAlbum.innerText = "❤️";
-    featuredAlbum.classList.add("featured-album");
-    let featuredContainer = document.createElement("div");
-    featuredContainer.classList.add("featured-container");
-    featuredContainer.append(featuredAlbum);
-    albumContainer.append(featuredContainer);
-  }
+  albumContainer.append(dateFeat);
 
   return albumContainer;
 
