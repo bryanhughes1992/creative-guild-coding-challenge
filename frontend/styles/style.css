@@ -126,3 +126,42 @@ html, body {
   font-size: 2vh;
   font-family: 'Araboto-Bold';
 }
+
+/*
+  ALBUM STYLES
+*/
+
+.album-containers {
+  height: 70vh;
+  width: 100vw;
+}
+
+.album-container {
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+.album-image-container {
+  position: relative;
+  height: 150px;
+  width: 300px;
+}
+
+.album-image {
+  height: 150px;
+  width: 250px;
+  border-radius: 5px;
+}
+
+
+.album-title {
+  font-family: 'Araboto-Normal';
+  font-size: 2.2vh;
+  color: white;
+  margin: 0;
+  position: absolute;
+  bottom: 8%;
+  left: 2%;
+}
+
+.
