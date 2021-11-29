@@ -31,7 +31,7 @@ html, body {
   width: 100vw;
   margin: 0;
   position: absolute;
-  background-image: linear-gradient(20deg, rgb(116, 79, 37), silver,  rgb(62, 97, 179));
+  background-image: linear-gradient(15deg, rgb(165, 114, 56), silver,  rgb(126, 165, 255));
 }
 
 .artist-container {
@@ -51,8 +51,8 @@ html, body {
   width: 100%;
 }
 .artist-profile-pic {
-  height: 150px;
-  width: 150px;;
+  height: 11vw;
+  width: 11vw;;
   border-radius: 50%;
   margin: 0 auto;
 }
