@@ -87,4 +87,42 @@ html, body {
   color: grey;
 }
 
+.email-phone-container {
+  display: grid;
+  place-content: center;
+}
 
+.artist-phone-container {
+  height: fit-content;
+  margin: 0;
+}
+
+.artist-phone {
+  font-size: 2vh;
+  font-family: "Araboto-Normal", sans-serif;
+  margin: 0;
+  color: rgb(238, 39, 238);
+}
+
+.artist-phone-label {
+  margin: 0;
+  font-size: 2vh;
+  font-family: 'Araboto-Bold', sans-serif;
+}
+
+.artist-email-container {
+  height: fit-content;
+}
+
+.artist-email {
+  margin: 0;
+  font-size: 2vh;
+  font-family: 'Araboto-Normal';
+  color: rgb(238, 39, 238);
+}
+
+.artist-email-label {
+  margin: 0;
+  font-size: 2vh;
+  font-family: 'Araboto-Bold';
+}
