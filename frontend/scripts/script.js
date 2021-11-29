@@ -203,24 +203,12 @@ function handleAlbums(data) {
  */
 function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   let albumContainer = document.createElement("div");
-  albumContainer.id = id;
+  albumContainer.id = `album${id}`;
+  albumContainer.classList.add("album-containers")
 
-  let albumTitle = document.createElement("h2");
-  albumTitle.innerText = title;
-  albumTitle.classList.add("album-title");
-  let titleContainer = document.createElement("div");
-  titleContainer.classList.add("album-title-container");
-  titleContainer.append(albumTitle);
-  albumContainer.append(titleContainer);
-
-  let albumDescription = document.createElement("p");
-  albumDescription.innerText = albumDesc;
-  albumDescription.classList.add("album-description");
-  let descContainer = document.createElement("div");
-  descContainer.classList.add("album-description-container");
-  descContainer.append(albumDescription);
-  albumContainer.append(descContainer);
-
+  /**
+   * PICTURE
+   */
   let newSrc = img.replace("jpg", "jpeg");
   let albumImg = document.createElement("img");
   albumImg.classList.add("album-image");
@@ -229,8 +217,32 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   let imgContainer = document.createElement("div");
   imgContainer.classList.add("album-image-container");
   imgContainer.append(albumImg);
+
+  /**
+   * TITLE
+   */
+  let albumTitle = document.createElement("h2");
+  albumTitle.innerText = title;
+  albumTitle.classList.add("album-title");
+  // Append the album title to the img container
+  imgContainer.append(albumTitle);
   albumContainer.append(imgContainer);
 
+  /**
+   * DESCRIPTION
+   */
+  let albumDescription = document.createElement("p");
+  albumDescription.innerText = albumDesc;
+  albumDescription.classList.add("album-description");
+  let descContainer = document.createElement("div");
+  descContainer.classList.add("album-description-container");
+  descContainer.append(albumDescription);
+  albumContainer.append(descContainer);
+
+
+  /**
+   * DATE-CREATED
+   */
   let albumDateCreated = document.createElement("p");
   albumDateCreated.innerText = dateCreated;
   albumDateCreated.classList.add("album-date-created");
@@ -239,6 +251,9 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   dateContainer.append(albumDateCreated);
   albumContainer.append(dateContainer);
 
+  /**
+   * FEATURED
+   */
   if (featured === "1") {
     let featuredAlbum = document.createElement("span");
     featuredAlbum.innerText = "❤️";
