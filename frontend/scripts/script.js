@@ -2,10 +2,6 @@ window.addEventListener("DOMContentLoaded", () => {
   fetch("https://creative-backend.bryanhughes.net/api/artists")
   .then(response => response.json())
   .then(data => handleArtists(data));
-
-  fetch("https://creative-backend.bryanhughes.net/api/albums")
-    .then(response => response.json())
-    .then(data => handleAlbums(data));
 });
 
 
@@ -36,6 +32,10 @@ function handleArtists(data) {
   let app = document.getElementById("app");
   let appContent = formatArtists(name, phone, email, bio, profilePic);
   app.append(appContent);
+
+  fetch("https://creative-backend.bryanhughes.net/api/albums")
+  .then(response => response.json())
+  .then(data => handleAlbums(data));
 }
 
 /**
@@ -63,8 +63,28 @@ function formatArtists(name, phone, email, bio, profilePic) {
   let artistPic = profilePic;
 
   /**
+  * PIC
+  */
+  // Modify the img string so it contains the proper img format
+  let updatedArtistPic = artistPic.replace('jpg', 'jpeg');
+  // Make an img element for the picture
+  let picElement = document.createElement("img");
+  // Set the img src to represent the file structure
+  picElement.src = `../${updatedArtistPic}`;
+  picElement.alt = "Artist Profile Picture";
+  picElement.classList.add("artist-profile-pic");
+  // Make a container for the pic
+  let picContainer = document.createElement("div");
+  picContainer.classList.add("artist-pic-container");
+  picContainer.append(picElement);
+  artistContainer.append(picContainer);
+
+  /**
    * NAME
    */
+  let nameBioContainer = document.createElement("div");
+  nameBioContainer.classList.add("name-bio-container");
+
   // Format the artist name into an H1
   let nameElement = document.createElement("h1");
   nameElement.innerText = artistName;
@@ -73,62 +93,68 @@ function formatArtists(name, phone, email, bio, profilePic) {
   let nameContainer = document.createElement("div");
   nameContainer.classList.add("artist-name-container");
   nameContainer.append(nameElement);
-  artistContainer.append(nameContainer);
+  nameBioContainer.append(nameContainer);
 
   /**
-   * PHONE NUMBER
-   */
-  // Format the artist phone number into a paragraph elem
-  let phoneElement = document.createElement("p");
-  phoneElement.innerText = artistPhone;
-  phoneElement.classList.add("artist-phone");
-  // Make a div for the phone number
-  let phoneContainer = document.createElement("div");
-  phoneContainer.classList.add("artist-phone-container");
-  phoneContainer.append(phoneElement);
-  artistContainer.append(phoneContainer);
-
-  /**
-   * EMAIL
-   */
-  // Create a paragraph element for the artist email
-  let emailElement = document.createElement("p");
-  emailElement.innerText = artistEmail;
-  emailElement.classList.add("artist-email");
-  // Create a container for the email
-  let emailContainer = document.createElement("div");
-  emailContainer.classList.add("artist-email-container");
-  emailContainer.append(emailElement);
-  artistContainer.append(emailContainer);
-
-  /**
-   * BIOGRAPHY
-   */
+  * BIOGRAPHY
+  */
   // Create a paragraph element for the artist biography
   let bioElement = document.createElement("p");
   bioElement.innerText = artistBio;
   bioElement.classList.add("artist-bio");
+  // Create a label for the bio
+  let bioLabel = document.createElement("h2");
+  bioLabel.textContent = "Bio";
+  bioLabel.classList.add("artist-bio-label");
   // Create a container for the bio
   let bioContainer = document.createElement("div");
   bioContainer.classList.add("artist-bio-container");
+  // Put everything inside the proper box
+  bioContainer.append(bioLabel);
   bioContainer.append(bioElement);
-  artistContainer.append(bioContainer);
+  nameBioContainer.append(bioContainer);
+  artistContainer.append(nameBioContainer);
 
   /**
-   * PIC
+   * PHONE NUMBER
    */
-  // Modify the img string so it contains the proper img format
-  let updatedArtistPic = artistPic.replace('jpg', 'jpeg');
-  // Make an img element for the picture
-  let picElement = document.createElement("img");
-  // Set the img src to represent the file structure
-  picElement.src = `../${updatedArtistPic}`;
-  picElement.alt = "Artist Profile Picture";
-  // Make a container for the pic
-  let picContainer = document.createElement("div");
-  picContainer.classList.add("artist-pic-container");
-  picContainer.append(picElement);
-  artistContainer.append(picContainer);
+  let emailPhoneContainer = document.createElement("div");
+  // Format the artist phone number into a paragraph elem
+  let phoneElement = document.createElement("p");
+  phoneElement.innerText = artistPhone;
+  phoneElement.classList.add("artist-phone");
+  // Make a label for the phone number
+  let phoneLabel = document.createElement("h2");
+  phoneLabel.innerText = "Phone";
+  phoneLabel.classList.add("artist-phone-label");
+  // Make a div for the phone number
+  let phoneContainer = document.createElement("div");
+  phoneContainer.classList.add("artist-phone-container");
+  phoneContainer.append(phoneLabel);
+  phoneContainer.append(phoneElement);
+  emailPhoneContainer.append(phoneContainer);
+
+  /**
+   * EMAIL
+   */
+  emailPhoneContainer.classList.add("email-phone-container");
+
+  // Create a paragraph element for the artist email
+  let emailElement = document.createElement("p");
+  emailElement.innerText = artistEmail;
+  emailElement.classList.add("artist-email");
+  // Create a label for the email
+  let emailLabel = document.createElement("h2");
+  emailLabel.innerText = "Email";
+  emailLabel.classList.add("artist-email-label");
+  // Create a container for the email
+  let emailContainer = document.createElement("div");
+  emailContainer.classList.add("artist-email-container");
+  emailContainer.append(emailLabel);
+  emailContainer.append(emailElement);
+  emailPhoneContainer.append(emailContainer);
+  artistContainer.append(emailPhoneContainer);
+
 
 
   return artistContainer;
@@ -165,7 +191,7 @@ function handleAlbums(data) {
 }
 
 /**
- *
+ * Takes the properties of an album and formats them,
  * @param {Number} id
  * @param {String} title
  * @param {String} albumDesc
