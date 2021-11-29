@@ -11,7 +11,8 @@ window.addEventListener("DOMContentLoaded", () => {
  * values to variables. Passes these variables to a
  * function that will format their values into HTML.
  * Finally, this function appends the formatted HTML to
- * the HTML DOM.
+ * the HTML DOM. Once this is complete, this function calls
+ * the Fetch API for the albums.
  * @param {Object} data
  */
 function handleArtists(data) {
@@ -21,6 +22,7 @@ function handleArtists(data) {
   let bio = "";
   let profilePic = "";
 
+  // Iterate over the data and save all the artist properties
   for (let i = 0; i < data.length; i++) {
     name = data[i]["name"];
     phone = data[i]["phone"];
@@ -29,10 +31,17 @@ function handleArtists(data) {
     profilePic = data[i]["profile_pic"];
   }
 
+  // Capture the HTML Main element
   let app = document.getElementById("app");
+  // Capture the formatted artist
   let appContent = formatArtists(name, phone, email, bio, profilePic);
+  // Append it to the main
   app.append(appContent);
 
+  /*
+    Now that the artists are formatted and appended to the DOM, fetch the
+    Albums, format and handle them
+  */
   fetch("https://creative-backend.bryanhughes.net/api/albums")
   .then(response => response.json())
   .then(data => handleAlbums(data));
@@ -84,7 +93,6 @@ function formatArtists(name, phone, email, bio, profilePic) {
    */
   let nameBioContainer = document.createElement("div");
   nameBioContainer.classList.add("name-bio-container");
-
   // Format the artist name into an H1
   let nameElement = document.createElement("h1");
   nameElement.innerText = artistName;
@@ -150,22 +158,25 @@ function formatArtists(name, phone, email, bio, profilePic) {
   // Create a container for the email
   let emailContainer = document.createElement("div");
   emailContainer.classList.add("artist-email-container");
+  // Append the email and its labekl
   emailContainer.append(emailLabel);
   emailContainer.append(emailElement);
+  // Place the email container in its parent
   emailPhoneContainer.append(emailContainer);
+  // Place the container with the email and phone in the artist container
   artistContainer.append(emailPhoneContainer);
-
-
 
   return artistContainer;
 }
 
 /**
- *
+ * Accepts an object containing the six different albums.
+ * Loops over their properties, passes them to a function that
+ * formats them into HTML, and appends them to the DOM.
  * @param {Object} data
  */
 function handleAlbums(data) {
-  // console.log(data);
+  // Variable Initialization
   let id = 0;
   let title = "";
   let albumDesc = "";
@@ -176,6 +187,7 @@ function handleAlbums(data) {
   let masterAlbumContainer = document.createElement("div");
   masterAlbumContainer.classList.add("album-container");
 
+  // Iterate over the album data and save its properties
   for (let i = 0; i < data.length; i++) {
     id = data[i].id;
     title = data[i].title;
@@ -184,14 +196,16 @@ function handleAlbums(data) {
     dateCreated = data[i].date_created;
     featured = data[i].featured;
     artistId = data[i].artist_id;
-
+    // Append the output of the formatAlbums function to container that will hold all the albums
     masterAlbumContainer.append(formatAlbums(id, title, albumDesc, img, dateCreated, featured));
   }
+  // Append all the albums to the main app
   app.append(masterAlbumContainer);
 }
 
 /**
- * Takes the properties of an album and formats them,
+ * Takes the properties of an album and formats them into HTML,
+ * and returns them in one HTML div.
  * @param {Number} id
  * @param {String} title
  * @param {String} albumDesc
@@ -252,7 +266,6 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
     let featuredAlbum = document.createElement("span");
     featuredAlbum.innerText = "❤️";
     featuredAlbum.classList.add("featured-album");
-
     featuredContainer.append(featuredAlbum);
     dateFeat.append(featuredContainer);
   }
@@ -268,7 +281,6 @@ function formatAlbums(id, title, albumDesc, img, dateCreated, featured) {
   dateContainer.classList.add("album-date-container");
   dateContainer.append(albumDateCreated);
   dateFeat.append(dateContainer);
-
   albumContainer.append(dateFeat);
 
   return albumContainer;
